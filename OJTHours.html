@@ -1,0 +1,95 @@
+<html>
+	
+	<title>Total OJT Hours</title>
+	
+	<head>
+		<link rel="stylesheet" href="OJTHours.css">
+		<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="bootstrap-theme.min.css">
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" src="bootstrap.js"></script>
+		<script type="text/javascript" src="bootstrap.min.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+	</head>
+
+	<body>
+		<script type="text/javascript">
+		$(document).ready(function(){
+
+			var a = 0;
+			var b = 0;
+			var c = parseInt(localStorage.getItem('hours'));
+			var d = parseInt(localStorage.getItem('left'));
+			
+				if(c != 0 || c!= null)
+				{
+				$('#current').html(c);
+				$('#left').html(d);
+				}
+
+				if(c >= 500)
+				{
+					$('#msg').html('Congratulations,You\'re done! Goodluck!');
+					$('#but').hide();
+					$('#hours').hide();
+				}
+
+				$('#but').click(function(){
+				var hours = parseInt($('#hours').val());
+				if(isNaN(hours))
+				{
+					alert('Invalid Input');
+				}
+
+				else if(isNaN(c))
+				{
+				a += hours;
+				localStorage.setItem('hours',a);
+				b = 500 - a;
+				localStorage.setItem('left',b);
+				console.log(c);
+				$('#current').html(a);
+				$('#left').html(b);
+				}
+				
+				else
+				{			
+					c += hours;
+					d = 500 - c;
+					localStorage.setItem('hours',c);
+					localStorage.setItem('left',d)
+					$('#current').html(c);
+					$('#left').html(d);
+				}
+			});
+
+				$('#reset').click(function(){
+
+					localStorage.removeItem('hours');
+					localStorage.removeItem('left');
+					alert('For the changes to take effect, restart the app.');
+
+				});
+		});
+		</script>
+		
+
+		<div class="content">
+			<h3>Required OJT Hours:</h3><span>500</span>
+			<h3>Current OJT Hours:</h3><span id="current"></span>
+			<h3>Total Hours left:</h3><span id="left"></span>
+			<br />
+			<br />
+			Input hour/s:<input type="text" id="hours" size="5" maxlength="5">
+			<br />
+			<br />
+			<button id="but">Add</button>
+			<button id="reset">Reset</button>
+			<span id="msg"> </span>
+
+
+		</div>
+
+
+	</body>
+</html>
